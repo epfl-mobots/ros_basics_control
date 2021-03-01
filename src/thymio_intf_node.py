@@ -34,7 +34,6 @@ class ThymioInterface:
         self._ub_old = 0.2
         self._wheel_rad = 0.022
         self._wheel_dist_2 = 0.0475
-        self._regu = 45  # TODO: check this
 
     def spin(self):
         loop_rate = rospy.Rate(10)
@@ -49,18 +48,14 @@ class ThymioInterface:
         self._psensor_pub.publish(ps)
 
     def _vel_callback(self, data):
-        l_speed = (data.v + self._wheel_dist_2 * -data.w) / \
-            self._wheel_rad
-        r_speed = (data.v - self._wheel_dist_2 * -data.w) / \
-            self._wheel_rad
-        l_speed /= self._regu
-        r_speed /= self._regu
+        l_speed = (2 * data.v + self._wheel_dist_2 * -data.w) / 2
+        r_speed = (2 * data.v - self._wheel_dist_2 * -data.w) / 2
         l_speed = self._rescale(l_speed)
         r_speed = self._rescale(r_speed)
         self._move(l_speed, r_speed)
 
     def _move(self, l_speed, r_speed):
-        print("(l, r): ({}, {})".format(l_speed, r_speed))
+        # print("(l, r): ({}, {})".format(l_speed, r_speed))
         l_speed = l_speed if l_speed >= 0 else 2 ** 16 + l_speed
         r_speed = r_speed if r_speed >= 0 else 2 ** 16 + r_speed
         self._th[self._id]["motor.left.target"] = l_speed
