@@ -8,10 +8,10 @@
 
     <include file="$(find ros_basics_vision)/launch/thymio_tracker.launch" ns="$(arg ns)"/>
 
-    <!-- <include file="$(find ros_basics_solution)/launch/thymio_ctrl_cli.launch" ns="$(arg ns)" >
+    <!-- <include file="$(find ros_basics_solution)/launch/thymio_ctrl_cli.launch" ns="$(arg ns)">
         <arg name="is_simu" value="false"/>
     </include> -->
-    <include file="$(find ros_basics_exercise)/launch/thymio_ctrl_cli.launch" ns="$(arg ns)" >
+    <include file="$(find ros_basics_exercise)/launch/thymio_ctrl_cli.launch" ns="$(arg ns)">
         <arg name="is_simu" value="false"/>
     </include>
 
