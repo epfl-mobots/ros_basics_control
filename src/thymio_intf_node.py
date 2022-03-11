@@ -30,7 +30,6 @@ class ThymioInterface:
         self._ub_old = 0.14
         self._wheel_rad = 0.022
         self._wheel_dist_2 = 0.0475
-        # self._regu = 45  # TODO: check this
         self._rate = 10
 
     def spin(self):
@@ -51,8 +50,6 @@ class ThymioInterface:
     def _vel_callback(self, data):
         l_speed = (2 * data.v + self._wheel_dist_2 * -data.w) / 2
         r_speed = (2 * data.v - self._wheel_dist_2 * -data.w) / 2
-        # l_speed /= self._regu
-        # r_speed /= self._regu
         l_speed = self._rescale(l_speed)
         r_speed = self._rescale(r_speed)
         self._move(l_speed, r_speed)
